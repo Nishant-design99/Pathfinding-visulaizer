@@ -1,0 +1,328 @@
+/* ... existing styles ... */
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1a1c20 0%, #2c3e50 100%);
+  color: #ffffff;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.controls input {
+  padding: 8px;
+}
+
+.controls button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.controls button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.controls button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.controls button:not(:first-child) {
+  background: linear-gradient(45deg, #2196F3 0%, #1976D2 100%);
+}
+
+.controls select {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.controls select option {
+  background: #2c3e50;
+  color: white;
+}
+
+.status-message {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-message.error {
+  color: #ff6b6b;
+}
+
+.status-message.success {
+  color: #69db7c;
+}
+
+.array-container {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 4px;
+  margin: 20px auto;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  width: min(90vw, 800px);
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.array-element {
+  position: relative;
+  border-radius: 8px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(33, 150, 243, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  overflow: hidden;
+}
+
+.array-element:hover {
+  transform: scale(1.05);
+  z-index: 1;
+}
+
+.array-element.visited {
+  background: rgba(158, 158, 158, 0.4);
+  animation: scaleIn 0.3s ease;
+}
+
+.array-element.checking {
+  background: linear-gradient(45deg, #FF9800, #FFA726);
+  animation: checking 0.5s ease infinite alternate;
+}
+
+.array-element.start-node,
+.array-element.difficult-terrain.start-node {
+  background: linear-gradient(45deg, #4CAF50, #81C784) !important;
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+.array-element.end-node,
+.array-element.difficult-terrain.end-node {
+  background: linear-gradient(45deg, #f44336, #E57373) !important;
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+.array-element.path-node {
+  background: linear-gradient(45deg, #2196F3, #64B5F6);
+  color: white;
+  border-color: #1769aa;
+  animation: pathReveal 0.5s ease;
+}
+
+/* Ensure specificity if needed, e.g., start/end node overrides visited */
+.array-element.visited.start-node,
+.array-element.path-node.start-node { /* Path can overlap start */
+    background-color: #4CAF50; /* Keep start node color */
+}
+
+.array-element.visited.end-node,
+.array-element.path-node.end-node { /* Path can overlap end */
+    background-color: #f44336; /* Keep end node color */
+}
+
+.array-element.difficult-terrain {
+  background: linear-gradient(45deg, #795548, #8D6E63);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: #654321;
+}
+
+.array-element.difficult-terrain.visited {
+  background-color: #A0522D;  /* Slightly lighter brown when visited */
+}
+
+/* Ensure difficult terrain styling doesn't override start/end nodes */
+.array-element.difficult-terrain.start-node,
+.array-element.difficult-terrain.end-node {
+  background-color: inherit;
+}
+
+.array-element.path-node,
+.array-element.difficult-terrain.path-node {
+  background: linear-gradient(45deg, #2196F3, #64B5F6) !important;
+  color: white;
+  animation: pathReveal 0.5s ease;
+}
+
+/* Keep visited node styling for difficult terrain */
+.array-element.difficult-terrain.visited:not(.path-node):not(.start-node):not(.end-node) {
+  background: #A0522D;
+}
+
+/* Normal difficult terrain styling when not part of path/start/end */
+.array-element.difficult-terrain:not(.path-node):not(.start-node):not(.end-node) {
+  background: linear-gradient(45deg, #795548, #8D6E63);
+}
+
+p {
+  margin-top: 15px;
+  font-style: italic;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes checking {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+@keyframes pathReveal {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.legend-color {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.legend-color.start-node {
+  background: linear-gradient(45deg, #4CAF50, #81C784);
+}
+
+.legend-color.end-node {
+  background: linear-gradient(45deg, #f44336, #E57373);
+}
+
+.legend-color.visited {
+  background: rgba(158, 158, 158, 0.4);
+}
+
+.legend-color.path-node {
+  background: linear-gradient(45deg, #2196F3, #64B5F6);
+}
+
+.legend-color.difficult-terrain {
+  background: linear-gradient(45deg, #795548, #8D6E63);
+}
+
+.instructions {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.instructions p {
+  margin: 0.5rem 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .App {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .array-container {
+    padding: 0.8rem;
+    gap: 2px;
+  }
+
+  .array-element {
+    font-size: 0.6rem;
+  }
+}
