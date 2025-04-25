@@ -1,11 +1,76 @@
-# React + TypeScript + Vite
+# Pathfinding Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive visualization tool for various pathfinding algorithms implemented in React and TypeScript.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Interactive grid-based visualization
+- Multiple pathfinding algorithms:
+  - Breadth-First Search (BFS) - Finds the shortest path
+  - Depth-First Search (DFS) - Memory efficient exploration
+  - Dijkstra's Algorithm - Optimal path with weighted nodes
+  - A* Search - Fastest path using heuristics
+- Weighted terrain with different movement costs
+- Real-time visualization of algorithm execution
+- Clear visual representation of:
+  - Start node (green)
+  - End node (red)
+  - Visited nodes (gray)
+  - Path nodes (blue)
+  - Difficult terrain (brown)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Nishant-design99/Pathfinding-visulaizer.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd Pathfinding-visulaizer
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## How to Use
+
+1. Click any cell to set the start point (green)
+2. Click another cell to set the end point (red)
+3. Select an algorithm from the dropdown menu
+4. Click "Find Path" to visualize the pathfinding process
+5. Use "Reset" to clear the grid and select new points
+6. Use "New Grid" to generate a new random grid with different terrain
+
+## Technologies Used
+
+- React
+- TypeScript
+- Vite
+- CSS3 with modern features
+
+## Contributing
+
+Feel free to open issues and pull requests for any improvements you want to add.
+
+## License
+
+This project is open source and available under the MIT License.
 
 ## Expanding the ESLint configuration
 
